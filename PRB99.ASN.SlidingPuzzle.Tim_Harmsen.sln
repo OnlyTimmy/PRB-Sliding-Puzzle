@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PRB99.ASN.SlidingPuzzle.Tim_Harmsen", "PRB99.ASN.SlidingPuzzle.Tim_Harmsen\PRB99.ASN.SlidingPuzzle.Tim_Harmsen.csproj", "{FD85C1B2-3637-4D85-8D3B-A99A6D796C6C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FD85C1B2-3637-4D85-8D3B-A99A6D796C6C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD85C1B2-3637-4D85-8D3B-A99A6D796C6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD85C1B2-3637-4D85-8D3B-A99A6D796C6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD85C1B2-3637-4D85-8D3B-A99A6D796C6C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
