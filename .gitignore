@@ -437,3 +437,6 @@ obj/
 # Logs
 *.log
 >>>>>>> 686804f (Add sliding puzzle - basis)
+
+# Local snippets
+Maps/Code snippet.txt
