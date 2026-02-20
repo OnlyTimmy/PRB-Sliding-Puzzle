@@ -16,6 +16,7 @@ class Program
             char[,] field = ReadMap(chosenMap); // Loads the map to be read into a char array.
             field = ConvertField(field); //Converts the field into a usable field (- = ice, R = rock, P = player)
             if (!CheckMap(field)) continue; // If the map is not valid (thats why the !), return to the main menu.
+            field = ChoseStartingPosition(field);            
             GameLoop(field);
         }
     }
@@ -155,53 +156,76 @@ class Program
         field[0, 4] = player;
         return field;
     }
-    static void DrawBoard(char[,] field)
+    
+    static void DrawBoard(char[,] field, int heightY)
     {
         if (soundEnabled) Console.Write("\a"); //MTR - Escape character (sound on each move)
         Console.Clear();
         int height = field.GetLength(0);
         int width = field.GetLength(1);
+        
+        Console.Write("   "); // zorgt voor uitlijning van de nummers
+        Console.WriteLine(Numbering(field)); // zet de nummers er op van de kolommen.
+        
         // MTR – For lus
         for (int i = 0; i < height; i++)
         {
+            Console.Write("   ");  // zorgt voor uitlijning van de vakjes 
             for (int k = 0; k < width; k++)
             {
                 Console.Write("+---");
             }
 
             Console.WriteLine("+");
+            Console.Write(i+1+" "); // schrijft de nummer van de rij op links van het veld
+            if (i<9) Console.Write(" ");
             for (int j = 0; j < width; j++)
             {
                 Console.Write("| ");
                 Console.Write(field[i, j]);
                 Console.Write(" ");
+                
             }
 
             Console.WriteLine("|");
+            
         }
 
+
+        Console.Write("   "); // zorgt voor uitlijning van de onderste rij
         for (int k = 0; k < width; k++)
         {
             Console.Write("+---");
         }
 
         Console.WriteLine("+");
-    } // bord zonder kleur zodat het bij winst of verlies groen of rood kan worden
+    } 
     // MTR – Overloading
-    static void DrawBoard(char[,] field, bool useColor)//board with colors to make elements visible 
+    static void DrawBoard(char[,] field, bool useColor, int heightY)//board with colors to make elements visible 
     { 
         if (soundEnabled) Console.Write("\a"); //MTR - Escape character (sound on each move)
         Console.Clear();
         int height = field.GetLength(0);
-        int width = field.GetLength(1);
+        int width = field.GetLength(1); 
+        
+        Console.Write("   "); // zorgt voor uitlijning van de nummers
+        Console.WriteLine(Numbering(field)); // zet de nummers er op van de kolommen.
+        
         // MTR – For lus
         for (int i = 0; i < height; i++)
         {
+            Console.Write("   ");  // zorgt voor uitlijning van de vakjes  
             for (int k = 0; k < width; k++)
             {
                 Console.Write("+---");
             }
             Console.WriteLine("+");
+            // if (height >= 10) Console.Write(" ");
+            // {
+            //     
+            // }
+            Console.Write(i+1+" "); // schrijft de nummer van de rij op links van het veld
+            if (i<9) Console.Write(" ");
             for (int j = 0; j < width; j++)
             {
                 Console.Write("| ");
@@ -218,24 +242,176 @@ class Program
 
             Console.WriteLine("|");
         }
+        Console.Write("   "); // zorgt voor uitlijning van de onderste rij
         for (int k = 0; k < width; k++)
         {
             Console.Write("+---");
         }
 
         Console.WriteLine("+");
-    } 
+    }
 
+    static void DrawBoard(char[,] field)
+    {
+        if (soundEnabled) Console.Write("\a"); //MTR - Escape character (sound on each move)
+        Console.Clear();
+        int height = field.GetLength(0);
+        int width = field.GetLength(1);
+        
+        Console.Write("  "); // zorgt voor uitlijning van de nummers
+        Console.WriteLine(Numbering(field)); // zet de nummers er op van de kolommen.
+        
+        // MTR – For lus
+        for (int i = 0; i < height; i++)
+        {
+            Console.Write("  ");  // zorgt voor uitlijning van de vakjes  
+            for (int k = 0; k < width; k++)
+            {
+                Console.Write("+---");
+            }
+
+            Console.WriteLine("+");
+            Console.Write(i+1+" "); // schrijft de nummer van de rij op links van het veld
+            for (int j = 0; j < width; j++)
+            {
+                Console.Write("| ");
+                Console.Write(field[i, j]);
+                Console.Write(" ");
+                
+            }
+
+            Console.WriteLine("|");
+            
+        }
+
+
+        Console.Write("  "); // zorgt voor uitlijning van de onderste rij
+
+        for (int k = 0; k < width; k++)
+        {
+            Console.Write("+---");
+        }
+
+        Console.WriteLine("+");
+    }
+    // MTR – Overloading
+    static void DrawBoard(char[,] field, bool useColor)//board with colors to make elements visible 
+    { 
+        if (soundEnabled) Console.Write("\a"); //MTR - Escape character (sound on each move)
+        Console.Clear();
+        int height = field.GetLength(0);
+        int width = field.GetLength(1); 
+        
+        Console.Write("  "); // zorgt voor uitlijning van de nummers
+        Console.WriteLine(Numbering(field)); // zet de nummers er op van de kolommen.
+        
+        // MTR – For lus
+        for (int i = 0; i < height; i++)
+        {
+            Console.Write("  ");  // zorgt voor uitlijning van de vakjes  
+            for (int k = 0; k < width; k++)
+            {
+                Console.Write("+---");
+            }
+            Console.WriteLine("+");
+            // if (height >= 10) Console.Write(" ");
+            // {
+            //     
+            // }
+            Console.Write(i+1+" "); // schrijft de nummer van de rij op links van het veld
+            for (int j = 0; j < width; j++)
+            {
+                Console.Write("| ");
+                
+                if (field[i, j] == rock) Console.ForegroundColor = ConsoleColor.Red; 
+                else if (field[i, j] == player) Console.ForegroundColor = ConsoleColor.Magenta;
+                else if (field[i, j] == brokenIce) Console.ForegroundColor = ConsoleColor.Cyan;
+                else Console.ResetColor();
+                
+                Console.Write(field[i, j]);
+                Console.ResetColor();
+                Console.Write(" ");
+            }
+
+            Console.WriteLine("|");
+        }
+        Console.Write("  "); // zorgt voor uitlijning van de onderste rij
+        for (int k = 0; k < width; k++)
+        {
+            Console.Write("+---");
+        }
+
+        Console.WriteLine("+");
+    }
+    
+    static string Numbering(char[,] field)
+    {
+        int width = field.GetLength(1);
+        string numbering = "";
+        for (int i = 0; i < width; i++)
+        {
+            if (i > 8) numbering += (" " + (i + 1))+" ";
+            else numbering += ("  "+ (i+1) + " ");
+        }
+
+        return numbering;
+    }
     static string GameLoop(char[,] field)
     {
         while (true)
         {
-            DrawBoard(field, true); // puts the board on the screen
+            int height = field.GetLength(0);
+            if (height > 8) DrawBoard(field,true, 10);
+            else DrawBoard(field,true); // puts the board on the screen
             int[] move = GetMoveDirection(); // stores the move direction in a variable to use in movePlayer
             string result = MovePlayer(field, move);
             if (result == "won" || result == "lost")
             return result;
         }
+    }
+
+    static char[,] ChoseStartingPosition(char[,] newField)
+    {
+
+        int height = newField.GetLength(0);
+        int width =  newField.GetLength(1);
+        if (height > 8) DrawBoard(newField,true, 10);
+        else DrawBoard(newField,true); // puts the board on the screen
+        string[] rowValidInput = new string[height];
+        string[] columValidInput =  new string[width];
+        for (int i = 0; i < (width); i++)
+        {
+            columValidInput[i] = Convert.ToString(i+1);
+        }
+        for (int i = 0; i < height; i++)
+        {
+            rowValidInput[i] = Convert.ToString(i+1);
+        }
+
+        int columChoice;
+        int rowChoice;
+        while (true)
+        {
+            columChoice = Convert.ToInt32(GetValidInput("Kies de kolom waar u wilt beginnen", columValidInput));
+            rowChoice = Convert.ToInt32(GetValidInput("Kies de rij waar u wilt beginnen", rowValidInput));
+            if (newField[rowChoice - 1, columChoice - 1] == ice || newField[rowChoice - 1, columChoice - 1] == player) break;
+            Console.WriteLine("Deze positie is niet mogelijk omdat er een rots staat.\nKies een andere startpositie!\n");
+        }
+
+        for (int i = 0; i < height; i++)
+        {
+            for (int j = 0; j < width; j++)
+            {
+                if (newField[i, j] == player)
+                {
+                    newField[i, j] = ice;
+                }
+            }
+        }
+        newField[rowChoice-1, columChoice-1] = player;
+        
+        return newField;
+
     }
     static int[] FindPlayer(char[,] field)
     {
@@ -250,6 +426,7 @@ class Program
 
         return [-1, -1];
     }
+    
     static char[,] ConvertField(char[,] rawField)
     { // Checks every tile of the map and converts it (R = rock, P = player, - = ice, O = brokenIce)
         int height = rawField.GetLength(0);
@@ -368,9 +545,11 @@ class Program
     }
     static void GameEnd(char[,] field, string result)
     { //called once you win or lose (the game ends)
+        int height = field.GetLength(0);
         // displays a message showing if you won or lost and turns the board red or green
         Console.ForegroundColor = result == "won" ? ConsoleColor.Green : ConsoleColor.Red; //https://stackoverflow.com/questions/2743260/is-it-possible-to-write-to-the-console-in-colour-in-net
-        DrawBoard(field);
+        if (height > 8) DrawBoard(field, 10);
+        else DrawBoard(field);
         Console.WriteLine(result == "won" ? "Gewonnen !!!\nDruk op enter om naar het hoofdmenu te gaan" : "Verloren !!!\nDruk op enter om naar het hoofdmenu te gaan");
         Console.ResetColor();
         Console.ReadLine();
