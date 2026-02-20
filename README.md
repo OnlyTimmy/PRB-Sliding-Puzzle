@@ -1,52 +1,54 @@
-# PRB – Sliding Puzzle (C# Console)
+# Sliding Puzzle – C# Console Application
 
-C# console application implementing a sliding puzzle game with structured validation and file-based map loading.
+Console-based sliding puzzle game developed in C# with a strong focus on validation, structure, and clean code practices.
 
-## Project Structure
+## Overview
 
-- main → v1.0 Base assignment  
-- uitbreiding → v1.1 Extended version with additional validation and gameplay improvements  
+This project started as a base assignment and was extended with additional validation logic and gameplay improvements.  
+The focus was on writing structured, maintainable code rather than only achieving functional output.
 
-## Features (Base)
+## Architecture & Design
 
-- Load maps from file
-- Validate map dimensions (min/max size)
-- Validate allowed characters
-- Ensure exactly one player
-- Ensure at least one ice tile
-- Console-based board rendering
+- Object-Oriented Design
+- Clear separation between:
+  - Map loading
+  - Validation logic
+  - Game logic
+  - Rendering
+- Defensive programming principles
+- Explicit input validation before execution
+
+## Core Features
+
+- File-based map loading
+- Dimension validation (min/max constraints)
+- Character validation
+- Single player enforcement
+- Mandatory ice tile detection
+- Console rendering system
 - Player movement system
 
-## Features (Uitbreiding)
+## Extended Features
 
-- Custom start position handling
-- Board numbering support
+- Custom start position support
+- Board numbering logic
 - Detection of isolated ice tiles
-- Advanced map validation rules
-- Structured error handling with clear feedback
-- Cleaner separation of validation logic
+- Structured error feedback
+- Improved validation flow and logic isolation
 
-## Technical Details
+## Technical Stack
 
-- Language: C#
-- Framework: .NET Console Application
-- Object-Oriented Design
-- File I/O processing
+- C#
+- .NET Console Application
+- File I/O
 - Structured validation pipeline
-- Defensive programming principles applied
 
-## How to Run
+## Versioning Strategy
 
-1. Open:
-   PRB99.ASN.SlidingPuzzle.Tim_Harmsen.sln
+- `main` → Base implementation (v1.0)
+- `uitbreiding` → Feature branch with extended validation (v1.1)
 
-2. Or via CLI:
-   dotnet run
-
-## Versioning
-
-- v1.0-base → Original assignment
-- v1.1 → Extended version with enhanced validation and gameplay features
+This project demonstrates incremental development and version control discipline using Git.
 
 ---
 
